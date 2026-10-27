@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cotizador de maquinaria pesada</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&display=swap">
+<style>
+:root{--bg:#eceff1;--card:#fff;--ink:#17212b;--mut:#66727e;--line:#d9dee2;--acc:#f0b400;--accink:#17212b;--ok:#2e7d4f;--bad:#b3392f;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#12171d;--card:#1a2129;--ink:#e8ebee;--mut:#8f9aa5;--line:#2a333d}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#12171d;--card:#1a2129;--ink:#e8ebee;--mut:#8f9aa5;--line:#2a333d}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 Archivo,system-ui,-apple-system,"Segoe UI",sans-serif}
+.top{background:#17212b;color:#fff;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 20px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:17px}
+.brand i{width:14px;height:28px;background:var(--acc);display:block}
+.brand small{display:block;font-weight:400;font-size:12px;color:#9fadb9}
+nav{display:flex;gap:4px}
+nav button{background:none;border:0;color:#b8c3cc;padding:8px 14px;font:inherit;font-weight:500;cursor:pointer;border-bottom:3px solid transparent}
+nav button.on{color:#fff;border-bottom-color:var(--acc)}
+main{max-width:1240px;margin:0 auto;padding:20px}
+.view{display:none}.view.on{display:block}
+.grid{display:grid;grid-template-columns:minmax(0,420px) minmax(0,1fr);gap:20px;align-items:start}
+@media(max-width:900px){.grid{grid-template-columns:1fr}}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:18px}
+h2{font-size:15px;margin:0 0 12px;font-weight:700}
+h2.s{margin-top:20px;padding-top:16px;border-top:1px solid var(--line)}
+label{display:block;font-size:12px;color:var(--mut);margin:10px 0 4px}
+input,select,textarea{width:100%;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:9px 10px}
+input:focus,select:focus,textarea:focus,button:focus-visible{outline:2px solid var(--acc);outline-offset:1px}
+textarea{min-height:80px;resize:vertical}
+.r2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.btn{background:var(--acc);color:var(--accink);border:0;border-radius:4px;padding:10px 16px;font:inherit;font-weight:600;cursor:pointer}
+.btn.g{background:none;color:var(--ink);border:1px solid var(--line)}
+.btn.d{background:none;color:var(--bad);border:1px solid var(--line)}
+.btn.sm{padding:6px 10px;font-size:13px}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.item{border:1px solid var(--line);border-radius:4px;padding:10px;margin-bottom:8px}
+.item .r3{display:grid;grid-template-columns:70px 1fr 1fr;gap:8px;margin-top:8px}
+.item .rm{float:right}
+.hint{color:var(--mut);font-size:13px}
+.chk{display:flex;gap:8px;align-items:center;margin-top:12px;font-size:14px;color:var(--ink)}
+.chk input{width:auto}
+.sheetwrap{overflow-x:auto}
+.sheet{background:#fff;color:#17212b;width:100%;min-width:620px;max-width:794px;margin:0 auto;padding:40px 44px;border:1px solid var(--line);font-size:13px;line-height:1.5}
+.sh{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:3px solid #17212b;padding-bottom:14px}
+.logo{display:flex;gap:10px;align-items:center}
+.logo b{display:block;font-size:18px;letter-spacing:.2px}
+.logo span{font-size:11px;color:#66727e;display:block}
+.sheet h1{font-size:20px;margin:22px 0 2px}
+.meta{display:grid;grid-template-columns:1fr 1fr;gap:4px 24px;margin:14px 0}
+.meta div span{color:#66727e;display:block;font-size:11px}
+.sheet table{width:100%;border-collapse:collapse;margin-top:8px}
+.sheet th{background:#17212b;color:#fff;text-align:left;font-weight:500;padding:7px 8px;font-size:12px}
+.sheet td{padding:8px;border-bottom:1px solid #e3e7ea;vertical-align:top}
+.sheet .n{text-align:right;white-space:nowrap}
+.tot{margin:12px 0 0 auto;width:260px}
+.tot div{display:flex;justify-content:space-between;padding:4px 8px}
+.tot .t{background:#f0b400;font-weight:700;font-size:15px;margin-top:4px;padding:8px}
+.cond{margin-top:20px;white-space:pre-wrap;font-size:12px;color:#3d4955}
+.firma{margin-top:56px;width:220px;border-top:1px solid #17212b;padding-top:4px;font-size:12px}
+.sf{margin-top:28px;padding-top:8px;border-top:1px solid #d9dee2;font-size:11px;color:#66727e;text-align:center}
+table.l{width:100%;border-collapse:collapse}
+table.l th{font-size:12px;color:var(--mut);font-weight:500;text-align:left;padding:6px}
+table.l td{padding:6px;border-top:1px solid var(--line)}
+.cards{display:grid;gap:10px}
+.hc{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;background:var(--card);border:1px solid var(--line);border-radius:6px;padding:14px 16px}
+.hc b{font-size:15px}.hc .hint{display:block}
+.tag{font-size:12px;font-weight:600;padding:2px 8px;border-radius:3px;background:var(--bg)}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:#17212b;color:#fff;padding:10px 16px;border-radius:4px;display:none;z-index:9}
+.empty{padding:28px;text-align:center;color:var(--mut)}
+@media print{body{background:#fff}.top,.panel,.view:not(#cot) ,.toast{display:none!important}.grid{display:block}.sheet{border:0;padding:0;max-width:none;min-width:0}@page{margin:14mm}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="brand"><i></i><div>Cotizador<small>Alquiler y servicios de obra</small></div></div>
+  <nav id="tabs"><button data-v="cot" class="on">Cotizar</button><button data-v="cat">Catálogo</button><button data-v="his">Historial</button></nav>
+</header>
+<main>
+<section id="cot" class="view on"><div class="grid">
+  <div class="panel">
+    <h2>Datos del cliente</h2>
+    <div class="r2"><div><label>Cliente</label><input id="cliente" placeholder="Constructora Andes S.A.C."></div><div><label>RUC</label><input id="ruc" inputmode="numeric"></div></div>
+    <label>Proyecto u obra</label><input id="proyecto" placeholder="Movimiento de tierras, I.E. San Martín">
+    <div class="r2"><div><label>Tipo</label><select id="tipo"><option>Alquiler de maquinaria</option><option>Servicio de obra</option></select></div><div><label>Fecha</label><input type="date" id="fecha"></div></div>
+    <h2 class="s">Partidas</h2>
+    <div id="items"></div>
+    <div class="row" style="margin-top:0"><button class="btn g sm" id="addCat">+ Desde catálogo</button><button class="btn g sm" id="addCus">+ Partida libre</button></div>
+    <label class="chk"><input type="checkbox" id="igv" checked> Agregar IGV (18%)</label>
+    <label>Condiciones</label><textarea id="cond"></textarea>
+    <div class="row"><button class="btn" id="save">Guardar cotización</button><button class="btn g" id="print">Imprimir / PDF</button><button class="btn g" id="new">Nueva</button></div>
+  </div>
+  <div class="sheetwrap"><div class="sheet" id="sheet"></div></div>
+</div></section>
+
+<section id="cat" class="view"><div class="panel">
+  <h2>Catálogo de maquinaria y servicios</h2>
+  <p class="hint">Las tarifas guardadas aquí se usan al armar cada cotización.</p>
+  <div style="overflow-x:auto"><table class="l"><thead><tr><th>Equipo o servicio</th><th>Unidad</th><th>Tarifa (S/)</th><th></th></tr></thead><tbody id="catRows"></tbody></table></div>
+  <div class="row"><button class="btn" id="catAdd">Agregar equipo</button></div>
+</div></section>
+
+<section id="his" class="view"><div class="cards" id="hisList"></div></section>
+</main>
+<div class="toast" id="toast"></div>
+
+<script>
+// Datos de la empresa de ejemplo: reemplazar cuando llegue el logo y la hoja membretada reales.
+var EMP={nombre:"Maquinarias del Norte S.A.C.",lema:"Alquiler de maquinaria pesada y obras civiles",ruc:"20123456789",dir:"Av. Industrial 450, Chimbote, Áncash",tel:"+51 900 000 000",mail:"ventas@maquinariasdelnorte.pe"};
+var COND="• Validez de la oferta: 15 días calendario.\n• Las tarifas de alquiler no incluyen combustible, salvo indicación.\n• Movilización y desmovilización según lo indicado en la partida.\n• Forma de pago: 50% de adelanto y saldo contra valorización.";
+var UN=["Hora","Día","Mes","Global","m³","m²"];
+var S={cat:[],his:[],q:null};
+function ld(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
+function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+S.cat=ld("cm_cat",[
+ {n:"Excavadora sobre orugas 320",u:"Hora",p:260},{n:"Retroexcavadora 416",u:"Hora",p:150},
+ {n:"Volquete 15 m³",u:"Día",p:900},{n:"Motoniveladora 140K",u:"Hora",p:280},
+ {n:"Rodillo compactador liso",u:"Hora",p:180},{n:"Cargador frontal 950",u:"Hora",p:240},
+ {n:"Movilización y desmovilización",u:"Global",p:1200}]);
+S.his=ld("cm_his",[]);
+var $=function(i){return document.getElementById(i)};
+function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function money(n){return "S/ "+(+n||0).toLocaleString("es-PE",{minimumFractionDigits:2,maximumFractionDigits:2})}
+function today(){return new Date().toISOString().slice(0,10)}
+function nextNum(){var m=0;S.his.forEach(function(h){m=Math.max(m,h.num)});return m+1}
+function blank(){return{id:Date.now(),num:nextNum(),fecha:today(),cliente:"",ruc:"",proyecto:"",tipo:"Alquiler de maquinaria",items:[{d:"",u:"Hora",c:1,p:0}],igv:true,cond:COND,estado:"Enviada"}}
+S.q=blank();
+function calc(q){var s=0;q.items.forEach(function(i){s+=(+i.c||0)*(+i.p||0)});var g=q.igv?s*0.18:0;return{s:s,g:g,t:s+g}}
+function pad(n){return String(n).padStart(4,"0")}
+function toast(m){var t=$("toast");t.textContent=m;t.style.display="block";clearTimeout(toast.h);toast.h=setTimeout(function(){t.style.display="none"},2200)}
+
+// Pestañas
+document.querySelectorAll("#tabs button").forEach(function(b){b.onclick=function(){show(b.dataset.v)}});
+function show(v){document.querySelectorAll(".view").forEach(function(x){x.classList.toggle("on",x.id===v)});
+ document.querySelectorAll("#tabs button").forEach(function(x){x.classList.toggle("on",x.dataset.v===v)});
+ if(v==="cat")rCat();if(v==="his")rHis();window.scrollTo(0,0)}
+
+// Formulario
+function bind(id,key){$(id).oninput=function(){S.q[key]=$(id).type==="checkbox"?$(id).checked:$(id).value;rSheet()}}
+["cliente","ruc","proyecto","tipo","fecha","cond"].forEach(function(k){bind(k,k)});
+$("igv").onchange=function(){S.q.igv=$("igv").checked;rSheet()};
+function fillForm(){var q=S.q;["cliente","ruc","proyecto","tipo","fecha","cond"].forEach(function(k){$(k).value=q[k]});$("igv").checked=q.igv;rItems();rSheet()}
+function rItems(){
+ var h="";S.q.items.forEach(function(it,i){
+  h+='<div class="item"><button class="btn d sm rm" data-rm="'+i+'" aria-label="Quitar partida">Quitar</button>'+
+  (it.fromCat?'<span class="hint">Del catálogo</span>':'<span class="hint">Partida libre</span>')+
+  '<label>Descripción</label><input data-f="d" data-i="'+i+'" value="'+esc(it.d)+'">'+
+  '<div class="r3"><div><label>Cant.</label><input data-f="c" data-i="'+i+'" type="number" min="0" step="any" inputmode="decimal" value="'+esc(it.c)+'"></div>'+
+  '<div><label>Unidad</label><select data-f="u" data-i="'+i+'">'+UN.map(function(u){return '<option'+(u===it.u?' selected':'')+'>'+u+'</option>'}).join("")+'</select></div>'+
+  '<div><label>Precio (S/)</label><input data-f="p" data-i="'+i+'" type="number" min="0" step="any" inputmode="decimal" value="'+esc(it.p)+'"></div></div></div>'});
+ $("items").innerHTML=h||'<div class="empty">Agrega una partida para comenzar.</div>';
+ $("items").querySelectorAll("[data-f]").forEach(function(e){e.oninput=e.onchange=function(){var it=S.q.items[+e.dataset.i];it[e.dataset.f]=e.dataset.f==="d"||e.dataset.f==="u"?e.value:e.value;rSheet()}});
+ $("items").querySelectorAll("[data-rm]").forEach(function(e){e.onclick=function(){S.q.items.splice(+e.dataset.rm,1);rItems();rSheet()}})}
+$("addCus").onclick=function(){S.q.items.push({d:"",u:"Global",c:1,p:0});rItems();rSheet()};
+$("addCat").onclick=function(){
+ if(!S.cat.length){toast("El catálogo está vacío");return}
+ var m=document.createElement("div");m.style.cssText="position:fixed;inset:0;background:rgba(10,15,20,.55);z-index:20;display:flex;align-items:center;justify-content:center;padding:16px";
+ var b='<div class="panel" style="max-width:420px;width:100%;max-height:80vh;overflow:auto"><h2>Elegir del catálogo</h2>';
+ S.cat.forEach(function(c,i){b+='<button class="btn g" style="display:block;width:100%;text-align:left;margin-bottom:8px" data-p="'+i+'">'+esc(c.n)+'<span class="hint"> '+money(c.p)+' / '+esc(c.u)+'</span></button>'});
+ m.innerHTML=b+'<button class="btn d" data-p="x">Cancelar</button></div>';document.body.appendChild(m);
+ m.onclick=function(e){var p=e.target.dataset&&e.target.dataset.p;if(e.target===m||p==="x"){m.remove();return}
+  if(p!=null){var c=S.cat[+p];S.q.items.push({d:c.n,u:c.u,c:1,p:c.p,fromCat:1});m.remove();rItems();rSheet()}}};
+
+// Hoja membretada
+function rSheet(){var q=S.q,c=calc(q);
+ var rows=q.items.map(function(i,k){return '<tr><td>'+(k+1)+'</td><td>'+esc(i.d||"—")+'</td><td class="n">'+esc(i.c)+' '+esc(i.u)+'</td><td class="n">'+money(i.p)+'</td><td class="n">'+money((+i.c||0)*(+i.p||0))+'</td></tr>'}).join("");
+ $("sheet").innerHTML=
+ '<div class="sh"><div class="logo"><svg width="44" height="44" viewBox="0 0 44 44"><rect width="44" height="44" fill="#17212b"/><path d="M8 32h22l6-10h-8l-4-8H14l-2 8H8z" fill="#f0b400"/><circle cx="14" cy="34" r="3" fill="#fff"/><circle cx="28" cy="34" r="3" fill="#fff"/></svg><div><b>'+esc(EMP.nombre)+'</b><span>'+esc(EMP.lema)+'</span></div></div>'+
+ '<div style="text-align:right;font-size:11px;color:#66727e">RUC '+esc(EMP.ruc)+'<br>'+esc(EMP.tel)+'</div></div>'+
+ '<h1>Cotización N° '+pad(q.num)+'</h1><div style="color:#66727e">'+esc(q.tipo)+'</div>'+
+ '<div class="meta"><div><span>Cliente</span>'+esc(q.cliente||"—")+'</div><div><span>RUC</span>'+esc(q.ruc||"—")+'</div><div><span>Proyecto</span>'+esc(q.proyecto||"—")+'</div><div><span>Fecha</span>'+esc(q.fecha)+'</div></div>'+
+ '<table><thead><tr><th>#</th><th>Descripción</th><th class="n">Cantidad</th><th class="n">P. unit.</th><th class="n">Importe</th></tr></thead><tbody>'+rows+'</tbody></table>'+
+ '<div class="tot"><div><span>Subtotal</span><span>'+money(c.s)+'</span></div>'+(q.igv?'<div><span>IGV 18%</span><span>'+money(c.g)+'</span></div>':'')+'<div class="t"><span>Total</span><span>'+money(c.t)+'</span></div></div>'+
+ '<div class="cond"><b>Condiciones</b>\n'+esc(q.cond)+'</div><div class="firma">'+esc(EMP.nombre)+'</div>'+
+ '<div class="sf">'+esc(EMP.dir)+' · '+esc(EMP.mail)+'</div>'}
+
+$("save").onclick=function(){var q=JSON.parse(JSON.stringify(S.q));var i=S.his.findIndex(function(h){return h.id===q.id});
+ if(i>=0)S.his[i]=q;else S.his.unshift(q);sv("cm_his",S.his);toast("Cotización N° "+pad(q.num)+" guardada")};
+$("print").onclick=function(){try{window.print()}catch(e){toast("Abre el archivo en tu navegador para imprimir")}};
+$("new").onclick=function(){S.q=blank();fillForm();toast("Nueva cotización")};
+
+// Catálogo
+function rCat(){
+ $("catRows").innerHTML=S.cat.map(function(c,i){return '<tr><td><input data-k="n" data-i="'+i+'" value="'+esc(c.n)+'"></td><td><select data-k="u" data-i="'+i+'">'+UN.map(function(u){return '<option'+(u===c.u?' selected':'')+'>'+u+'</option>'}).join("")+'</select></td><td><input data-k="p" data-i="'+i+'" type="number" min="0" step="any" inputmode="decimal" value="'+esc(c.p)+'"></td><td><button class="btn d sm" data-del="'+i+'">Quitar</button></td></tr>'}).join("")||'<tr><td colspan="4" class="empty">Agrega tu primer equipo.</td></tr>';
+ $("catRows").querySelectorAll("[data-k]").forEach(function(e){e.onchange=function(){var c=S.cat[+e.dataset.i];c[e.dataset.k]=e.dataset.k==="p"?(+e.value||0):e.value;sv("cm_cat",S.cat)}});
+ $("catRows").querySelectorAll("[data-del]").forEach(function(e){e.onclick=function(){S.cat.splice(+e.dataset.del,1);sv("cm_cat",S.cat);rCat()}})}
+$("catAdd").onclick=function(){S.cat.push({n:"Nuevo equipo",u:"Hora",p:0});sv("cm_cat",S.cat);rCat()};
+
+// Historial
+function rHis(){
+ if(!S.his.length){$("hisList").innerHTML='<div class="panel empty">Aún no hay cotizaciones guardadas. Crea una en Cotizar y guárdala.</div>';return}
+ $("hisList").innerHTML=S.his.map(function(h,i){return '<div class="hc"><div><b>N° '+pad(h.num)+' · '+esc(h.cliente||"Sin cliente")+'</b><span class="hint">'+esc(h.proyecto||h.tipo)+' · '+esc(h.fecha)+'</span></div><div><b>'+money(calc(h).t)+'</b></div>'+
+ '<div style="display:flex;gap:8px;flex-wrap:wrap"><select data-st="'+i+'" style="width:auto">'+["Enviada","Aprobada","Rechazada"].map(function(s){return '<option'+(s===h.estado?' selected':'')+'>'+s+'</option>'}).join("")+'</select><button class="btn g sm" data-op="'+i+'">Abrir</button><button class="btn d sm" data-dl="'+i+'">Eliminar</button></div></div>'}).join("");
+ $("hisList").querySelectorAll("[data-st]").forEach(function(e){e.onchange=function(){S.his[+e.dataset.st].estado=e.value;sv("cm_his",S.his)}});
+ $("hisList").querySelectorAll("[data-op]").forEach(function(e){e.onclick=function(){S.q=JSON.parse(JSON.stringify(S.his[+e.dataset.op]));fillForm();show("cot")}});
+ $("hisList").querySelectorAll("[data-dl]").forEach(function(e){e.onclick=function(){if(confirm("¿Eliminar esta cotización?")){S.his.splice(+e.dataset.dl,1);sv("cm_his",S.his);rHis()}}})}
+
+fillForm();
+</script>
+</body>
+</html>
